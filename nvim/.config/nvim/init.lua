@@ -246,6 +246,8 @@ vim.o.scrolloff = 5
 vim.opt.matchpairs:append("<:>")
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
+vim.bo.softtabstop=2
+vim.bo.expandtab = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -624,6 +626,12 @@ cmp.setup {
 }
 
 --require'lspconfig'.gdscript.setup{ cmd = {'nc', '172.24.112.1', os.getenv 'GDScript_Port' or '6005'}}
+-- require'lspconfig'.gdscript.setup{ cmd = {'nc', '192.168.1.74', os.getenv 'GDScript_Port' or '6005'}}
+
+local handleWSLAddr = io.popen('sh -c "nslookup neobahamut |grep 192 | cut -d \' \' -f 2"')
+local WSLAddr = string.gsub(handleWSLAddr:read("*a"), '%s+', '')
+require'lspconfig'.gdscript.setup{ cmd = {'nc', WSLAddr, os.getenv 'GDScript_Port' or '6005'}}
+-- external editor setting on godot: --server 172.24.127.122:55432 --remote-send "<C-\><C-N>:n /mnt/{file}<CR>:call cursor({line},{col})<CR>"
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
