@@ -523,7 +523,7 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  html = { filetypes = { 'html', 'twig', 'hbs', 'templ'} },
 
   lua_ls = {
     Lua = {
@@ -632,6 +632,42 @@ local handleWSLAddr = io.popen('sh -c "nslookup neobahamut |grep 192 | cut -d \'
 local WSLAddr = string.gsub(handleWSLAddr:read("*a"), '%s+', '')
 require'lspconfig'.gdscript.setup{ cmd = {'nc', WSLAddr, os.getenv 'GDScript_Port' or '6005'}}
 -- external editor setting on godot: --server 172.24.127.122:55432 --remote-send "<C-\><C-N>:n /mnt/{file}<CR>:call cursor({line},{col})<CR>"
+--
+
+require'lspconfig'.emmet_language_server.setup({
+  filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "templ" },
+  -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
+  -- **Note:** only the options listed in the table are supported.
+  init_options = {
+    --- @type string[]
+    excludeLanguages = {},
+    --- @type string[]
+    extensionsPath = {},
+    --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
+    preferences = {},
+    --- @type boolean Defaults to `true`
+    showAbbreviationSuggestions = true,
+    --- @type "always" | "never" Defaults to `"always"`
+    showExpandedAbbreviation = "always",
+    --- @type boolean Defaults to `false`
+    showSuggestionsAsSnippets = false,
+    --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
+    syntaxProfiles = {},
+    --- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
+    variables = {},
+  },
+})
+
+-- templ
+vim.filetype.add({ extension = { templ = "templ" } })
+
+-- htmx
+require'lspconfig'.htmx.setup({on_attach = on_attach, capabilities = capabilities, filetypes = { "html", "templ" } })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+--no bg
+vim.api.nvim_set_hl(0, "Normal", {guibg=None})
+vim.api.nvim_set_hl(0, "EndOfBuffer", {guibg=None})
+vim.api.nvim_set_hl(0, "NonText", {guibg=None})
