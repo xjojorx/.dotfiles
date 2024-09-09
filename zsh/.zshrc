@@ -109,7 +109,7 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PATH=$PATH:/usr/local/go/bin:/snap/bin:~/go/bin
+export PATH=$PATH:/usr/local/go/bin:/snap/bin:~/go/bin:~/.dotnet:~/.dotnet/tools
 
 # autostart tmux if it exists, its an interactive shell and isn't already within tmux
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
@@ -117,3 +117,10 @@ if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] &&
 fi
 
 alias komorebic=komorebic.exe
+
+# bun completions
+[ -s "/home/jojor/.bun/_bun" ] && source "/home/jojor/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

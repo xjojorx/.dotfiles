@@ -19,4 +19,6 @@ return {
       require("nvim-tree").setup {}
     end,
   },
+  {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}},
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 }

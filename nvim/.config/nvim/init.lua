@@ -152,12 +152,23 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
+  { -- You can easily change to a different colorscheme.
+    -- Change the name of the colorscheme plugin below, and then
+    -- change the command in the config to whatever the name of that colorscheme is.
+    --
+    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+    'catppuccin/nvim',
+    name = "catppuccin",
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    init = function()
+      -- Load the colorscheme here.
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      -- vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'catppuccin-macchiato'
+
+      -- You can configure highlights by doing something like:
+      vim.cmd.hi 'Comment gui=none'
     end,
   },
 
@@ -168,7 +179,8 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        -- theme = 'tokyonight',
+        theme = 'catppuccin',
         component_separators = '|',
         section_separators = '',
       },
@@ -664,10 +676,24 @@ vim.filetype.add({ extension = { templ = "templ" } })
 -- htmx
 require'lspconfig'.htmx.setup({on_attach = on_attach, capabilities = capabilities, filetypes = { "html", "templ" } })
 
+-- gleam
+require'lspconfig'.gleam.setup{on_attach=on_attach}
+
+-- fsharp
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.fsharp = {
+  install_info = {
+    url = "https://github.com/Nsidorenco/tree-sitter-fsharp",
+    branch = "main",
+    files = {"src/scanner.c", "src/parser.c" },
+  },
+  filetype = "fsharp",
+}
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
 --no bg
-vim.api.nvim_set_hl(0, "Normal", {guibg=None})
-vim.api.nvim_set_hl(0, "EndOfBuffer", {guibg=None})
-vim.api.nvim_set_hl(0, "NonText", {guibg=None})
+-- vim.api.nvim_set_hl(0, "Normal", {guibg=None})
+-- vim.api.nvim_set_hl(0, "EndOfBuffer", {guibg=None})
+-- vim.api.nvim_set_hl(0, "NonText", {guibg=None})
