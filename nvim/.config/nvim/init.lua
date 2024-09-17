@@ -690,6 +690,9 @@ parser_config.fsharp = {
   filetype = "fsharp",
 }
 
+-- ocaml
+require'lspconfig'.ocamllsp.setup{on_attach=on_attach}
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
