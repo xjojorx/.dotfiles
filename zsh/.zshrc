@@ -125,6 +125,8 @@ alias komorebic=komorebic.exe
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+#fzf
+source <(fzf --zsh)
 
 # BEGIN opam configuration
 # This is useful if you're using opam as it adds:
