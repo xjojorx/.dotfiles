@@ -21,4 +21,5 @@ return {
   },
   {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}},
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { 'echasnovski/mini.icons', version = false },
 }
